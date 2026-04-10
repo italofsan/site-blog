@@ -4,6 +4,7 @@ import { FeatureSection } from '@/components/feature-section/feature-section'
 import { SupportSection } from '@/components/support-section/support-section'
 import { CustomerStorySection } from '@/components/customer-story-section'
 import { HeroSection } from '@/components/hero-section/hero-section'
+import { CallToAction } from '@/components/call-to-action'
 
 const geistSans = Geist({
   subsets: ['latin'],
@@ -23,6 +24,7 @@ export default function Home() {
         <FeatureSection />
         <SupportSection />
         <CustomerStorySection />
+        <CallToAction />
       </article>
     </>
   )
