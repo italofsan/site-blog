@@ -13,14 +13,33 @@ import {
 import { Avatar } from '@/components/avatar/avatar'
 import { Markdown } from '@/components/markdown/markdown'
 import { Button } from '@/components/ui/button'
+import { useShare } from '@/hooks'
 
 export default function PostPage() {
   const router = useRouter()
   const slug = router.query.slug as string
+
+  if (!slug) {
+    return <div>Loading...</div>
+  }
+
   const post = allPosts.find(
     (post) => post.slug.toLowerCase() === slug.toLowerCase(),
-  )!
-  const publishedDate = new Date(post?.date).toLocaleDateString('pt-BR')
+  )
+
+  if (!post) {
+    return <div>Post not found</div>
+  }
+
+  const publishedDate = new Date(post.date).toLocaleDateString('pt-BR')
+
+  const postUrl = `https://site.set/blog/${slug}`
+
+  const { shareButtons } = useShare({
+    url: postUrl,
+    title: post.title,
+    text: post.description,
+  })
 
   return (
     <main className='mt-32 text-gray-100'>
@@ -34,9 +53,7 @@ export default function PostPage() {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <span className='text-blue-200 text-action-sm'>
-                {post?.title}
-              </span>
+              <span className='text-blue-200 text-action-sm'>{post.title}</span>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
@@ -45,8 +62,8 @@ export default function PostPage() {
           <article className='bg-gray-600 rounded-lg overflow-hidden border-gray-400 border-[1px]'>
             <figure className='relative aspect-[16/10] w-full overflow-hidden rounded-lg'>
               <Image
-                src={post?.image ?? ''}
-                alt={post?.title ?? ''}
+                src={post.image}
+                alt={post.title}
                 fill
                 className='object-cover'
               />
@@ -54,17 +71,17 @@ export default function PostPage() {
 
             <header className='p-4 md:p-6 lg:p-12 pb-0 mt-8 md:mt-12'>
               <h1 className='mb-8 text-balance text-heading-lg md:text-heading-xl lg:text-heading-xl'>
-                {post?.title}
+                {post.title}
               </h1>
 
               <Avatar.Container>
                 <Avatar.Image
-                  src={post?.author.avatar}
-                  alt={post?.title}
+                  src={post.author.avatar}
+                  alt={post.title}
                   size='sm'
                 />
                 <Avatar.Content>
-                  <Avatar.Title>{post?.author.name}</Avatar.Title>
+                  <Avatar.Title>{post.author.name}</Avatar.Title>
                   <Avatar.Description>
                     Publicado em {''}
                     <time dateTime={post.date}>{publishedDate}</time>
@@ -85,9 +102,15 @@ export default function PostPage() {
               </h2>
 
               <div className='space-y-3'>
-                {[{ key: '1', providerName: 'LinkedIn' }].map((provider) => (
-                  <Button key={provider.key} variant='outline'>
-                    {provider.providerName}
+                {shareButtons.map((provider) => (
+                  <Button
+                    key={provider.provider}
+                    onClick={() => provider.action()}
+                    variant='outline'
+                    className='w-full justify-start gap-2'
+                  >
+                    {provider.icon}
+                    {provider.name}
                   </Button>
                 ))}
               </div>
