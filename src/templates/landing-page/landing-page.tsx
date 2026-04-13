@@ -2,7 +2,6 @@ import { CustomerStorySection } from '@/templates/landing-page/sections/customer
 import { HeroSection } from '@/templates/landing-page/sections/hero-section/hero-section'
 import { FeatureSection } from '@/templates/landing-page/sections/feature-section'
 import { SupportSection } from '@/templates/landing-page/sections/support-section'
-import { CallToAction } from '@/templates/landing-page/sections/call-to-action'
 
 export const LandingPage = () => {
   return (
@@ -11,7 +10,6 @@ export const LandingPage = () => {
       <FeatureSection />
       <SupportSection />
       <CustomerStorySection />
-      <CallToAction />
     </article>
   )
 }
