@@ -1,7 +1,9 @@
+'use client'
+
 import { Post } from 'contentlayer/generated'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
+// import { useRouter } from 'next/router'
 
 import { Avatar } from '@/components/avatar/avatar'
 import { Markdown } from '@/components/markdown'
