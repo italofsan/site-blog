@@ -13,7 +13,7 @@ import {
 import { Avatar } from '@/components/avatar/avatar'
 import { Markdown } from '@/components/markdown/markdown'
 import { Button } from '@/components/ui/button'
-import { useShare } from '@/hooks'
+import { useShare } from '@/hooks/use-share'
 
 export default function PostPage() {
   const router = useRouter()
@@ -96,7 +96,7 @@ export default function PostPage() {
           </article>
 
           <aside className='space-y-6'>
-            <div className='rounded-lg bg-gray-700 p-4 md:p-6'>
+            <div className='rounded-lg bg-gray-700'>
               <h2 className='mb-4 text-heading-xs text-gray-100'>
                 Compartilhar
               </h2>
