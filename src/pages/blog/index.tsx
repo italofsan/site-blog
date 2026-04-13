@@ -17,3 +17,13 @@ export const getStaticProps = (async () => {
     },
   }
 }) satisfies GetStaticProps<BlogListProps>
+
+/**
+ *  Pages Router
+ *
+ *  / -> pages/index.tsx
+ *
+ *  App Router
+ *
+ *  / -> app/page.tsx
+ */
